@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quest Table — an AI-run fantasy adventure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Quest Table</h1>
+    <span id="mode" class="mode"></span>
+  </header>
+
+  <!-- Join -->
+  <section id="screen-join" class="screen card narrow">
+    <h2>Enter the tavern</h2>
+    <p class="muted">An AI Game Master will guide your party through an open-ended adventure. Up to 8 players per party.</p>
+    <form id="join-form">
+      <label for="name">Your adventurer's name</label>
+      <input id="name" maxlength="24" autocomplete="off" placeholder="e.g. Aria Thornwood" required />
+      <button type="submit">Join the waiting room</button>
+    </form>
+  </section>
+
+  <!-- Waiting room -->
+  <section id="screen-lobby" class="screen card narrow" hidden>
+    <h2>The waiting room</h2>
+    <p class="muted">The adventure starts automatically when the party reaches the target size — or anyone can start it now.</p>
+    <div class="target">
+      <label for="target">Party size to wait for</label>
+      <select id="target"></select>
+    </div>
+    <p id="lobby-count" class="count"></p>
+    <ul id="lobby-list" class="roster"></ul>
+    <div class="row">
+      <button id="btn-start">Stop waiting — begin the adventure</button>
+      <button id="btn-leave-lobby" class="ghost">Leave</button>
+    </div>
+  </section>
+
+  <!-- Game -->
+  <section id="screen-game" class="screen game" hidden>
+    <aside class="side card">
+      <h3>The party</h3>
+      <ul id="party-list" class="roster"></ul>
+      <p id="turn" class="muted small"></p>
+      <button id="btn-leave-game" class="ghost small-btn">Leave adventure</button>
+    </aside>
+    <main class="main">
+      <div id="log" class="log card" aria-live="polite"></div>
+      <div id="status" class="status"></div>
+      <div id="panel" class="panel card">
+        <form id="action-form" hidden>
+          <textarea id="action" maxlength="600" rows="2" placeholder="What does your character do or say?"></textarea>
+          <div class="row">
+            <button type="submit">Declare action</button>
+            <button type="button" id="btn-proceed" class="ghost" title="Resolve the turn with the actions submitted so far">Proceed without waiting</button>
+          </div>
+        </form>
+        <div id="rolls" hidden></div>
+        <div id="retry" hidden><button id="btn-retry">Retry</button></div>
+        <div id="ended" hidden><button id="btn-new">Back to the tavern</button></div>
+        <form id="chat-form" class="chat">
+          <input id="chat" maxlength="300" autocomplete="off" placeholder="Table talk (out of character — the GM doesn't see this)" />
+        </form>
+      </div>
+    </main>
+  </section>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+:root {
+  --bg: #15110d;
+  --panel: #211a14;
+  --panel-2: #2a2119;
+  --ink: #eadfcb;
+  --muted: #a8977d;
+  --gold: #d6a548;
+  --gold-dim: #8c6a2b;
+  --ember: #c4572f;
+  --ok: #7fa865;
+  --line: #3a2f24;
+  --radius: 10px;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: radial-gradient(ellipse at top, #2a1f15 0%, var(--bg) 60%) fixed;
+  color: var(--ink); font: 18px/1.55 'EB Garamond', Georgia, serif;
+  display: flex; flex-direction: column;
+}
+h1, h2, h3 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 .5rem; letter-spacing: .03em; }
+.top { display: flex; align-items: baseline; gap: 1rem; padding: .8rem 1.4rem; border-bottom: 1px solid var(--line); }
+.top h1 { font-size: 1.4rem; margin: 0; }
+.mode { color: var(--muted); font-size: .85rem; }
+.screen { margin: 1.5rem auto; width: min(1100px, 100% - 2rem); }
+.narrow { max-width: 520px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem 1.4rem; }
+.muted { color: var(--muted); }
+.small { font-size: .85rem; }
+label { display: block; color: var(--muted); font-size: .9rem; margin: .8rem 0 .3rem; }
+input, textarea, select {
+  width: 100%; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 8px;
+  padding: .6rem .7rem; font: inherit;
+}
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--gold-dim); border-color: var(--gold-dim); }
+textarea { resize: vertical; }
+button {
+  background: var(--gold); color: #1b140c; border: 0; border-radius: 8px; padding: .6rem 1rem;
+  font: 600 .95rem 'Cinzel', serif; cursor: pointer; margin-top: .8rem;
+}
+button:hover { filter: brightness(1.08); }
+button:disabled { opacity: .5; cursor: default; }
+button.ghost { background: transparent; color: var(--gold); border: 1px solid var(--gold-dim); }
+.small-btn { font-size: .8rem; padding: .4rem .7rem; }
+.row { display: flex; gap: .6rem; flex-wrap: wrap; }
+.target { display: flex; align-items: center; gap: .8rem; }
+.target label { margin: 0; white-space: nowrap; }
+.target select { width: auto; }
+.count { margin: 1rem 0 .3rem; font-family: 'Cinzel', serif; }
+.roster { list-style: none; padding: 0; margin: .3rem 0; }
+.roster li { padding: .35rem 0; border-bottom: 1px dashed var(--line); display: flex; justify-content: space-between; gap: .5rem; }
+.roster li.me { color: var(--gold); }
+.roster .tag { font-size: .8rem; color: var(--muted); }
+.roster .tag.ok { color: var(--ok); }
+.roster li.away { opacity: .5; }
+
+.game { display: grid; grid-template-columns: 230px 1fr; gap: 1rem; flex: 1; min-height: 0; margin-top: 1rem; margin-bottom: 1rem; }
+.side { align-self: start; }
+.main { display: flex; flex-direction: column; gap: .6rem; min-height: 0; height: calc(100vh - 6rem); }
+.log { flex: 1; overflow-y: auto; padding: 1rem 1.4rem; }
+.entry { margin: 0 0 1rem; }
+.entry.gm p { margin: 0 0 .6rem; }
+.entry.gm { border-left: 3px solid var(--gold-dim); padding-left: .9rem; }
+.entry.action { color: #cfe0ff; }
+.entry.action b, .entry.chat b { font-family: 'Cinzel', serif; font-size: .9rem; }
+.entry.chat { color: var(--muted); font-size: .9rem; }
+.entry.system { color: var(--muted); font-style: italic; text-align: center; font-size: .9rem; }
+.entry > .entry.roll { margin: 0; }
+.entry.roll { font-family: 'Cinzel', serif; font-size: .95rem; background: var(--panel-2); border-radius: 8px; padding: .5rem .8rem; display: inline-block; }
+.entry.roll .num { color: var(--gold); font-size: 1.25rem; margin: 0 .2rem; }
+.entry.roll .success { color: var(--ok); }
+.entry.roll .failure { color: var(--ember); }
+.streaming::after { content: '▍'; color: var(--gold); animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.status { color: var(--muted); font-size: .95rem; min-height: 1.4em; padding: 0 .3rem; }
+.panel { padding: .8rem 1rem; }
+.panel textarea { min-height: 3.2rem; }
+.chat { margin-top: .6rem; }
+.chat input { font-size: .9rem; padding: .4rem .6rem; }
+.rollreq { display: flex; align-items: center; gap: .8rem; justify-content: space-between; padding: .4rem 0; border-bottom: 1px dashed var(--line); }
+.rollreq button { margin: 0; }
+.die { font-family: 'Cinzel', serif; color: var(--gold); }
+.toast { position: fixed; bottom: 1.2rem; left: 50%; transform: translateX(-50%); background: var(--ember); color: #fff; padding: .6rem 1rem; border-radius: 8px; }
+@media (max-width: 760px) {
+  .game { grid-template-columns: 1fr; }
+  .main { height: auto; }
+  .log { max-height: 60vh; }
+}
